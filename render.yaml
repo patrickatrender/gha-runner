@@ -1,0 +1,19 @@
+services:
+  - type: worker
+    name: gha-runner
+    runtime: docker
+    region: oregon
+    plan: standard
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    maxShutdownDelaySeconds: 300
+    autoDeployTrigger: commit
+    envVars:
+      - key: GITHUB_PAT
+        sync: false
+      - key: GITHUB_REPO
+        value: false
+      - key: RUNNER_LABELS
+        value: self-hosted,render,linux,x64
+      - key: RUNNER_NAME_PREFIX
+        value: render-runner
